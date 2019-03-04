@@ -1,7 +1,7 @@
 def bubble_sort(targets):
     length = len(targets)
-    inter = 0
     next_pass = True
+
     while next_pass is True:
         next_pass = False
         for i in range(length - 1):
