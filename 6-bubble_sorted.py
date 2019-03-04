@@ -93,7 +93,7 @@ while next_pass is True:
 print('')
 print('Total number of solutions tested:', length)
 
-high_score_solutions =[]
+high_score_solutions = []
 for i in range(length):
     if scores[i] == scores[0]:
         high_score_solutions.append(positions[i])
@@ -104,6 +104,6 @@ print('')
 print('Top Bubble Solutions:')
 
 for i in range(palmares):
-    number_sign = str(i)+")"
+    number_sign = str(i+1)+")"
     position = "#"+str(positions[i])
     print(number_sign, 'Bubble solution', position, 'score:', scores[i])
