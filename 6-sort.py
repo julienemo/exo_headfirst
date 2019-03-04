@@ -64,15 +64,12 @@ inter = 0
 next_pass = True
 
 while next_pass is True:
+    next_pass = False
     for i in range(length-1):
         if scores[i] < scores[i+1]:
             inter = scores[i+1]
             scores[i+1] = scores[i]
             scores[i] = inter
-        else:
-            next_pass = False
-# next_pass = True
-# else:
-# next_pass = False
+            next_pass = True
 
 print('option2', scores)
