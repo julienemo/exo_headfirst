@@ -4,7 +4,6 @@
 
 # things to do
 # 1 figure out why import doesn't work
-# 2 separate the modules
 # 3 get the syllable part done
 # 4 forgot to push the last modifs from i7, occasion to test confict management
 text = """The first thing that stands between you and writing your first, real,
@@ -18,7 +17,7 @@ skill, but its actually something you do every day. Let’s look at an
 example, a simple one: say you wanted to break the activity of fishing
 down into a simple set of instructions that you could hand to a robot,
 who would do your fishing for you. Here’s our first attempt to do that,
-check it out:
+check it out:ddad
 
 You can think of these statements as a nice recipe for fishing. Like any
 recipe, this one provides a set of steps, that when followed in order,
@@ -60,28 +59,41 @@ def total_phrases(target_text):
 
 
 def word_syllables(word):
-    # appro. syllable countings according to following principles
-    # 1.when a word contains 3 letters or less=> 1 syllable
-    prev_char_vow = False
+    # counting syllables in each word
+    count = 0
+
+    # cleaning words:
+    endings = '!@#$%^&*()_+{}[]:;,."'+"'"
+
+    if word[-1] in endings:
+        word = word[: -1]
+    else:
+        word = word
+
     if len(word) <= 3:
         return 1
 
-    # 2. otherwise, a word has so many syllables as the nb of vows
-    # however, vow sequences are considered as only one vow
-    count = 0
-    vows = 'aeiouAEIOU'
+    if word[-1] in 'eE':
+        word = word[: -1]
+
+    vowels = 'aeiouAEIOU'
+    prev_char_vow = False
     for char in word:
-        if char in vows:
-            if prev_char_vow == False:
+        if char in vowels:
+            if not prev_char_vow:
                 count = count + 1
             prev_char_vow = True
         else:
             prev_char_vow = False
+
+    if word[-1] in 'Yy':
+        count = count + 1
+
     return count
 
 
 def total_syllables(target_text):
-    # logic : count syllables in each word then add together
+    # logic : count syllables in each word then
     splited_text = target_text.split()
     count = 0
     for word in splited_text:
@@ -131,5 +143,5 @@ def display_text(target_text):
     print('')
 
 
-display_text(text)
+# display_text(text)
 readability(text)
