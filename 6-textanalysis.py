@@ -40,23 +40,65 @@ used has been nothing more than a (sometimes large) set of simple
 instructions to the computer that tell it what to do. """
 
 
-def compute_readability(target_text):  # separated fun to count and calculate
-    # Counting words. word = whatever is separted by white space
-    words = target_text.split()
-    total_word = len(words)
+def total_words(target_text):
+    # definition of word:
+    # whatever is separated by a white space
+    splited_text = target_text.split()
+    nbwords = len(splited_text)
+    return nbwords
 
-    # Counting phrases.
-    # phrase = whatever is separated by one item in the following list
-    phrase_separators = '.!?;'
-    total_phrase = 0
+
+def total_phrases(target_text):
+    # definition of phrase:
+    # whatever is separated by .!?;
+    nbphrase = 0
+    separators = '.!?;'
     for char in target_text:
-        if char in phrase_separators:
-            total_phrase = total_phrase + 1
+        if char in separators:
+            nbphrase = nbphrase + 1
+    return nbphrase
 
-    total_syllable = 0
-    score = 206.835 - 1.015 * (total_word / total_phrase) - 84.6 * (total_syllable / total_word)
 
-    text = "Reading level of"
+def word_syllables(word):
+    # appro. syllable countings according to following principles
+    # 1.when a word contains 3 letters or less=> 1 syllable
+    prev_char_vow = False
+    if len(word) <= 3:
+        return 1
+
+    # 2. otherwise, a word has so many syllables as the nb of vows
+    # however, vow sequences are considered as only one vow
+    count = 0
+    vows = 'aeiouAEIOU'
+    for char in word:
+        if char in vows:
+            if prev_char_vow == False:
+                count = count + 1
+            prev_char_vow = True
+        else:
+            prev_char_vow = False
+    return count
+
+
+def total_syllables(target_text):
+    # logic : count syllables in each word then add together
+    splited_text = target_text.split()
+    count = 0
+    for word in splited_text:
+        count = count + word_syllables(word)
+    return count
+
+
+def readability(target_text):
+    nb1 = total_words(target_text)
+    nb2 = total_phrases(target_text)
+    nb3 = total_syllables(target_text)
+    k1 = 206.835
+    k2 = 1.015
+    k3 = 84.6
+    score = round((k1 - k2 * (nb1 / nb2) - k3 * (nb3 / nb1)), 2)
+
+    print_text = "Reading level of"
     if score > 90:
         level = '5th Grade'
     elif score > 80:
@@ -72,18 +114,22 @@ def compute_readability(target_text):  # separated fun to count and calculate
     else:
         level = 'Gollege Graduate'
 
+    print('Total words:', nb1)
+    print('Total phrases:', nb2)
+    print('Total syllables:', nb3)
+    print('')
+    print('Readability score:', score)
+    print(print_text, level)
+
+
+def display_text(target_text):
     print('Text to analyze:')
     print('')
     print('-------TEXT BELOW-------')
     print(target_text)
     print('-------TEXT ENDS-------')
     print('')
-    print('Total words:', total_word)
-    print('Total phrases:', total_phrase)
-    print('Total syllables:', total_syllable)
-    print('')
-    print('Readability score:', score)
-    print(text, level)
 
 
-compute_readability(text)
+display_text(text)
+readability(text)
