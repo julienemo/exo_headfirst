@@ -29,8 +29,28 @@ def setup():
         turtles.append(new_turtle)
 
 
-setup()
+def race():
+    global turtles
+    winner = False
+    finishline = 590
 
+    while winner == False:
+        for current_turtle in turtles:
+            move = random.randint(5,20)
+            current_turtle.forward(move)
+            xcor = current_turtle.xcor()
+            if (xcor >= finishline):
+                winner = True
+                winner_color = current_turtle.color()
+                print('The winner is', winner_color[0], 'turtle!')
+                # winner_color[0] clearly is the first item in a list
+                # but how did winner_color become a list???
+                # I though current_turtle.color() was a defaut attribute value
+                # tried winner_color, wouldn't work
+
+
+setup()
+race()
 
 # when using turtle.mainloop()
 # window closes as soon as prog complets
