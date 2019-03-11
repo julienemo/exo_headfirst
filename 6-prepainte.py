@@ -1,3 +1,7 @@
+# import ch1text.py
+# import doesn't work for i7, to be tested on dell
+# error msg:ImportError: No module  named 'ch1text.py'; 'ch1text' is not a package
+
 text = """The first thing that stands between you and writing your first, real,
 piece of code, is learning the skill of breaking problems down into
 acheivable little actions that a computer can do for you. Of course,
@@ -30,4 +34,49 @@ first key to coding, in fact every App or software program you’ve ever
 used has been nothing more than a (sometimes large) set of simple
 instructions to the computer that tell it what to do. """
 
-print(text)
+def compute_readability(target_text):  # separated fun to count and calculate
+    # Counting words. word = whatever is separted by white space
+    words = target_text.split()
+    total_word = len(words)
+
+    # Counting phrases. phrase = whatever is separated by one item in the following list
+    phrase_separators = ['.', '!', '?', ';']
+    total_phrase = 0
+    for char in target_text:
+        if char in phrase_separators:
+                total_phrase = total_phrase + 1
+
+
+    total_syllable = 0
+    # score = 206.835 - 1.015 * (total_word / total_phrase) - 84.6 * (total_syllable / total_word)
+    print('Text to analyze:')
+    print('')
+    print(text)
+    print('')
+    print('Total words:', total_word)
+    print('Total phrases:', total_phrase)
+    print('Total syllables:',total_syllable)
+    # print('Readability score:',score)
+
+
+def readability_level(readability_score):
+    a = readability_score
+    text = "Reading level of"
+    if a > 90:
+        l = '5th Grade'
+    elif a > 80:
+        l = '6th Grade'
+    elif a > 70:
+        l = '7th Grade'
+    elif a > 60:
+        l = '8-9th Grade'
+    elif a > 50:
+        l = '10-12th Grade'
+    elif a > 30:
+        l = 'College student'
+    else:
+        l = 'Gollege Graduate'
+    print(text, l)
+
+compute_readability(text)
+readability_level(85)

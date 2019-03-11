@@ -1,18 +1,25 @@
-import ch1text
-# import by typing only the name of the file without the .py
+"""The analyze module uses Flesch-Kincaid readability test to analyze text and
+produce a readability score. This score is then converted into a grade-based
+readability category."""
 
 
 def total_words(target_text):
-    # definition of word:
-    # whatever is separated by a white space
+    """This function counts the number of words in the text.
+    It brakes the text into a list of items separated by white spaces.
+    The items are bases of words. The length of the mentioned list
+    is considered the number of words."""
+
     splited_text = target_text.split()
     nbwords = len(splited_text)
     return nbwords
 
 
 def total_phrases(target_text):
-    # definition of phrase:
-    # whatever is separated by .!?;
+    """This function counts the number of phrase.
+    It actually counts the number of punctuations
+    that delimite a phrase. Namely periods, semicolomn,
+    exclamation and question marks."""
+
     nbphrase = 0
     separators = '.!?;'
     for char in target_text:
@@ -22,24 +29,23 @@ def total_phrases(target_text):
 
 
 def word_syllables(word):
-    # counting syllables in each word
-    count = 0
+    """This function approximately counts the number
+    of syllables in a single word.
+    It is based on the following principles:
+    1. the punctuations and silent e at the end are to be wiped
+    2. words containing no more than 3 letters have only one syllable
+    3. for words with +3 letters, one vowel is one syllable, unless preceeded by another
+    4. for words with +3 letters, the letter Y at the end is considered a syllable"""
 
-    # cleaning words
-    # getting rid of any slient e or punts at the endings
-    # there needs to be several passes
+    count = 0
     endings = '!@#$%^&*()_+[]{}:;,.eE"'+"'"
+
     while word[-1] in endings:
         word = word[: -1]
-    # if a clean word has no more than 3 letters
-    # there is only one syllable
+
     if len(word) <= 3:
         return 1
-        # here reture instead of count
-        # other wise the rest of the code will add syllables
 
-    # for words with more than 3 letters
-    # any vowel is one syllable, unless preceeded by another
     vows = 'aeiouAEIOU'
     prev_char_vow = False
     for char in word:
@@ -50,8 +56,6 @@ def word_syllables(word):
         else:
             prev_char_vow = False
 
-    # for words with more than 3 letters
-    # y at the end of a word considered vow aka syllable
     if word[-1] in 'Yy':
         count = count + 1
 
@@ -59,7 +63,9 @@ def word_syllables(word):
 
 
 def total_syllables(target_text):
-    # logic : count syllables in each word then
+    """This function simply goes through every item in the list
+    of splited text and add the number of syllables of each word."""
+
     splited_text = target_text.split()
     count = 0
     for word in splited_text:
@@ -68,6 +74,14 @@ def total_syllables(target_text):
 
 
 def readability(target_text):
+    """This function takes the number of words, phrases and
+    syllables in a text with the help of three previous functions
+    (total_words, total_phrases and total_syllables) and compute
+    the score according to Flesch-Kincaid method and indicates
+    the corresponding level of study necessary to understand the text.
+    It displays the three number together with the score
+    as well as the level."""
+
     nb1 = total_words(target_text)
     nb2 = total_phrases(target_text)
     nb3 = total_syllables(target_text)
@@ -101,6 +115,8 @@ def readability(target_text):
 
 
 def display_text(target_text):
+    """This function displays the analyzed text."""
+
     print('Text to analyze:')
     print('')
     print('-------TEXT BELOW-------')
@@ -110,8 +126,13 @@ def display_text(target_text):
 
 
 def result(target_text):
+    """This function produces a comprehensive report,
+    including the three indicators, the score and the level."""
+
     display_text(target_text)
     readability(target_text)
 
 
-result(ch1text.text)
+if __name__ == '__main__':
+    import ch1text
+    result(ch1text.text)

@@ -1,5 +1,6 @@
 greeting = 'Greeting'
 
+
 def greet(name, message):
     global greeting
     greeting = 'Hi'
