@@ -40,10 +40,12 @@ def compute_readability(target_text):  # separated fun to count and calculate
     total_word = len(words)
 
     # Counting phrases. phrase = whatever is separated by one item in the following list
-    phrase_separators = ['.', '!', '?', ';']
+    separators = '.!?;'
+    # instead of using if char == blablabla
+    # or if char in []
     total_phrase = 0
     for char in target_text:
-        if char in phrase_separators:
+        if char in separators:
                 total_phrase = total_phrase + 1
 
 
