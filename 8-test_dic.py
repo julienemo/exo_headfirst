@@ -17,26 +17,3 @@ mydict['poid'] = 6.5
 #    print('OK to use value with IN operator.')
 # else:
 #    print('Only key can be used for IN operator, but not value.')
-
-# a dictionnary of dictionnaries as a table
-users = {}
-users['Kim'] = {
-  'email': 'kim@reilly.com',
-  'gender': 'F', 'age': 27, 'friends': ['John', 'Josh']}
-users['John'] = {
-  'email': 'john@abc.com',
-  'gender': 'M', 'age': 24, 'friends': ['Kim', 'Josh']}
-users['Josh'] = {
-  'email': 'josh@wickedlysmart.com',
-  'gender': 'M', 'age': 32, 'friends': ['John', 'Kim']}
-
-print(users)
-
-# for user in users:
-#    print(user)
-#    print(users[user]['friends'])
-
-
-for user in users:
-    print(user)
-    print(users[user]['age'])
