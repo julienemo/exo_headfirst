@@ -1,3 +1,4 @@
+import datetime
 holders = ['NOUN', 'VERB', 'ADJECTIVE', 'VERB_ING']
 
 
@@ -23,6 +24,12 @@ def get_modif_phrase(phrase):
     # 不然……会粘成一团浆糊><
 
 
+def save_modif(destination, text):
+    dest_file = open(destination, 'w')
+    dest_file.write(text)
+    dest_file.close
+
+
 def make_crazy_lib(target_file):
     try:
         the_file = open(target_file, 'r')
@@ -40,6 +47,9 @@ def make_crazy_lib(target_file):
         print("")
         print("-----HERE IS YOUR TEXT-----")
         print(modif_text)
+        namepre = str(datetime.datetime.now())
+        name = 'Crazy_lib' + namepre + ".txt"
+        save_modif(name, modif_text)
         the_file.close()
 
 
