@@ -1,4 +1,5 @@
 import datetime
+import sys
 holders = ['NOUN', 'VERB', 'ADJECTIVE', 'VERB_ING']
 
 
@@ -25,9 +26,12 @@ def get_modif_phrase(phrase):
 
 
 def save_modif(destination, text):
-    dest_file = open(destination, 'w')
-    dest_file.write(text)
-    dest_file.close
+    try:
+        dest_file = open(destination, 'w')
+        dest_file.write(text)
+        dest_file.close
+    except:
+        print("Oups ! Something bad just happened. Couldn't save the file.")
 
 
 def make_crazy_lib(target_file):
@@ -36,9 +40,6 @@ def make_crazy_lib(target_file):
         # 在这打开它是为了里边调用的get_modif_phrase用的
         # 主func的确没有用到它的地方
         # 一开始不是把它放这的一开始是放global的
-    except FileNotFoundError:
-        print("Oups, didn't find this file. You sure ?")
-    else:
         modif_text = ''
         # 这里并没有用到read功能
         # 那read到底有啥用    0 ^ o
@@ -51,9 +52,22 @@ def make_crazy_lib(target_file):
         name = 'Crazy_lib' + namepre + ".txt"
         save_modif(name, modif_text)
         the_file.close()
+    except FileNotFoundError:
+        print("Oups, didn't find this file. You sure ?")
 
 
-make_crazy_lib('lib.txt')
+def main():
+    if len(sys.argv) != 2:
+        print('crazy_libs, <filename>')
+        print('Please specify template file.')
+    else:
+        filename = sys.argv[1]
+        make_crazy_lib(filename)
+
+
+if __name__ == "__main__":
+    main()
+
 # bizarre that I had to put quotation around the filename...
 # 替换的套路：
 # new_ensemble = ''
