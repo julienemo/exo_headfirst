@@ -24,19 +24,23 @@ def get_modif_phrase(phrase):
 
 
 def make_crazy_lib(target_file):
-    the_file = open(target_file, 'r')
-    # 在这打开它是为了里边调用的get_modif_phrase用的
-    # 主func的确没有用到它的地方
-    # 一开始不是把它放这的一开始是放global的
-    modif_text = ''
-    # 这里并没有用到read功能
-    # 那read到底有啥用    0 ^ o
-    for phrase in the_file:
-        modif_text = modif_text + get_modif_phrase(phrase)
-    print("")
-    print("-----HERE IS YOUR TEXT-----")
-    print(modif_text)
-    the_file.close()
+    try:
+        the_file = open(target_file, 'r')
+        # 在这打开它是为了里边调用的get_modif_phrase用的
+        # 主func的确没有用到它的地方
+        # 一开始不是把它放这的一开始是放global的
+    except FileNotFoundError:
+        print("Oups, didn't find this file. You sure ?")
+    else:
+        modif_text = ''
+        # 这里并没有用到read功能
+        # 那read到底有啥用    0 ^ o
+        for phrase in the_file:
+            modif_text = modif_text + get_modif_phrase(phrase)
+        print("")
+        print("-----HERE IS YOUR TEXT-----")
+        print(modif_text)
+        the_file.close()
 
 
 make_crazy_lib('lib.txt')
