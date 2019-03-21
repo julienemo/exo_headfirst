@@ -13,7 +13,7 @@ def get_reponse():
         return reponse.status_code
 
 
-def set_cord():
+def set_cord(longi, lat):
     screen = turtle.Screen()
     screen.setup(1000, 500)
     screen.bgpic('earth.gif')
@@ -21,9 +21,6 @@ def set_cord():
     iss = turtle.Turtle()
     turtle.register_shape('iss.gif')
     iss.shape('iss.gif')
-    content = get_reponse()
-    lat = float(content['iss_position']['latitude'])
-    longi = float(content['iss_position']['longitude'])
     iss.penup()
     iss.goto(longi, lat)
     iss.pendown()
@@ -33,24 +30,27 @@ def print_reponse():
     start = time.time()
     content = get_reponse()
     t1 = time.time()
-    set_cord()
-    t2 = time.time()
     if isinstance(content, int):
-        print('Oups Huston, we have a problem,', content)
+        print("Oups, Huston, we have a problem,", get_reponse())
     else:
+        content = get_reponse()
+        lat = round(float(content['iss_position']['latitude']), 2)
+        longi = round(float(content['iss_position']['longitude']), 2)
+        set_cord(longi, lat)
+        t2 = time.time()
         print('')
         print('-----ISS POSITION-----')
-        print(content['iss_position']['latitude'], ',', content['iss_position']['longitude'])
+        print(longi, lat)
     end = time.time()
     print('')
     print('-----CHRONO-----')
-    print("Reaching station :", round((t1-start), 2), 'secs')
-    print("Moving station icon :", round((t2-t1), 2), 'secs')
+    print("Contacting station :", round((t1-start), 2), 'secs')
+    try:
+        print("Moving station icon :", round((t2-t1), 2), 'secs')
+    except:
+        print("Failed to get ISS cord ")
     print('Total calculation time:', round((end-start), 2), 'secs')
 
 
-try:
-    print_reponse()
-except:
-    print("Oups, something happend. Couldn't reach the station")
+print_reponse()
 turtle.mainloop()
