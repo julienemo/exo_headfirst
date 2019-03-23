@@ -8,7 +8,7 @@ def setup():
     global turtles
     startline = -620
     screen = turtle.Screen()
-    screen.setup(1290,720)
+    screen.setup(1290, 720)
     # the above setup had seemed to be too much repetation
     # which is not true coz there are two setups to do with Screen
     # btw tried to append the dots together like
@@ -34,9 +34,9 @@ def race():
     winner = False
     finishline = 590
 
-    while winner == False:
+    while not winner:
         for current_turtle in turtles:
-            move = random.randint(5,20)
+            move = random.randint(5, 20)
             current_turtle.forward(move)
             xcor = current_turtle.xcor()
             if (xcor >= finishline):
@@ -44,9 +44,11 @@ def race():
                 winner_color = current_turtle.color()
                 print('The winner is', winner_color[0], 'turtle!')
                 # winner_color[0] clearly is the first item in a list
-                # but how did winner_color become a list???
-                # I though current_turtle.color() was a defaut attribute value
-                # tried winner_color, wouldn't work
+                # turtle.color is by def a list of 2 items
+                # the first being the color of turtle
+                # the second the color of trace
+                # it takes two arguments
+                # if only one is given, by defaut the other is set to same
 
 
 setup()
