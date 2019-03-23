@@ -24,3 +24,13 @@ my_file.close()
 # meaning .readline() really know where the last lecture Stop
 # any lecture, not just .readline() lectures
 # file.read() knows as well
+
+my_file = open('lib.txt', 'r')
+lines = []
+for index, line in enumerate(my_file):
+    lines.append(index)
+print(lines[-1])
+my_file.close
+
+# une méthode bricolée pour compter le nb de lignes
+# il paraît que ça marche pour tout
