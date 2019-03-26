@@ -21,9 +21,11 @@ def set_cord(longi, lat):
     iss = turtle.Turtle()
     turtle.register_shape('iss.gif')
     iss.shape('iss.gif')
+    iss.hideturtle()
     iss.penup()
     iss.goto(longi, lat)
     iss.pendown()
+    iss.showturtle()
 
 
 def print_reponse():
