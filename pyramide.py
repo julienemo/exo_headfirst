@@ -30,7 +30,7 @@ def get_n():
     # Then found the following,
     # don't understand yet
     # but works
-    
+
     while True:
         try:
             while (int(n) <= 0) or (int(n) >= 20):
