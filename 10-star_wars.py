@@ -10,7 +10,7 @@ def get_player_choice():
     n = input(prompt)
     while True:
         try:
-            while (int(n)-1 < 0) or (int(n)-1 > 87):
+            while (int(n) < 1) or (int(n) > 88):
                 n = input(prompt)
             break
         except:
@@ -19,9 +19,9 @@ def get_player_choice():
 
 
 def get_pc_choice(m):
-    n = random.randint(1, 88)
-    while n == m:
-        n = random.randint(1, 88)
+    n = random.randint(1, 87)
+    if n >= int(m):
+        n = n + 1
     return str(n)
 
 
@@ -37,7 +37,9 @@ def get_reponse(n):
     if (reponse.status_code) == 200:
         return json.loads(reponse.text)
     else:
-        return reponse.status_code
+        print(n)
+        print('Error', reponse.status_code)
+        print(reponse.text)
 
 
 def get_films(n):
@@ -74,6 +76,7 @@ player_url = get_url(player_choice)
 pc_url = get_url(pc_choice)
 t2 = time.time()
 player_char = get_reponse(player_url)
+#time.sleep(2)
 pc_char = get_reponse(pc_url)
 t3 = time.time()
 player_char_hw = get_reponse(player_char['homeworld'])
