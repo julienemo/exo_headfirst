@@ -40,16 +40,64 @@ def get_reponse(n):
         return reponse.status_code
 
 
+def get_films(n):
+    films = []
+    for i in range(len(n)):
+        films.append(get_reponse(n[i])['title'])
+    return films
+
+
+def print_films(n):
+    for i in n:
+        print('--'+i)
+
+
+def count_common(n, m):
+    common = []
+    for i in n:
+        if i in m:
+            common.append(i)
+    if len(common) > 1:
+        string = 'appeared together in ' + str(len(common))+' films.'
+    elif len(common) == 1:
+        string = 'appeared together once in', common[0]
+    else:
+        string = "don't have common movie appearance."
+    return string
+
+
 player_choice = get_player_choice()
 pc_choice = get_pc_choice(player_choice)
 player_url = get_url(player_choice)
 pc_url = get_url(pc_choice)
 player_char = get_reponse(player_url)
 pc_char = get_reponse(pc_url)
-print('-----')
+player_char_hw = get_reponse(player_char['homeworld'])
+pc_char_hw = get_reponse(pc_char['homeworld'])
+player_char_fm = player_char['films']
+pc_char_fm = pc_char['films']
+string_to_print = count_common(get_films(player_char_fm), get_films(pc_char_fm))
 
 print('-----')
-print('YOUR CHARACATER')
-print('NAME :',)
+print('---YOUR CHARACTER---')
+print('CHARACTER N.', player_choice)
+print('NAME:', player_char['name'])
+print('BIRTH YEAR:', player_char['birth_year'])
+print('HOMEWORLD:', player_char_hw['name'])
+print('HEIGHT:', player_char['height'])
+print('MOVIE APPREARANCE:')
+print_films(get_films(player_char_fm))
 
+print('')
+print('---PC CHARACATER---')
+print('CHARACTER N.', pc_choice)
+print('NAME:', pc_char['name'])
+print('BIRTH YEAR:', pc_char['birth_year'])
+print('HOMEWORLD:', pc_char_hw['name'])
+print('HEIGHT:', pc_char['height'])
+print('MOVIE APPREARANCE:')
+print_films(get_films(pc_char_fm))
+print("")
 print("-----")
+print(player_char['name'], 'and', pc_char['name'])
+print(string_to_print)
